@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmobiliaria</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+      </style>
+<script src="https://kit.fontawesome.com/6a26404ef4.js" crossorigin="anonymous"></script>
+   <style>
+  .hidden {
+    display: none;
+  }
+   </style>
+</head>
+<body>
+    
+    <section id="login" class="hidden" > 
+        
+        <form id="loginform">
+          <h2>Inicio de Sesión</h2>
+            <div class="form">
+                <input type="text" id="username" placeholder="Usuario" required>
+            </div>
+           <div class="form">
+               <input type="password" id="password" placeholder="Contraseña" required>
+           </div>
+            
+            <button type="submit">Iniciar Sesión</button>
+            <p id="error-message" class="error-message"></p>
+        </form>
+    </section>
+    <div id="navbar" class="hidden">
+      <button class="open-btn" onclick="openNav()"><i class="fa-solid fa-bars"></i> Menú</button>
+      <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+          <ul>
+              <li><a href="javascript:void(0)" onclick="showSection('presentacion')"><i class="fa-solid fa-house"></i> Inicio</a></li>
+              <li><a href="javascript:void(0)" onclick="showSection('listaInmuebles')"><i class="fa-solid fa-building"></i> Inmuebles</a></li>
+              <li><a href="javascript:void(0)" onclick="showSection('listaPersonas')"><i class="fa-solid fa-user-group"></i> Personas</a></li>
+              <li><a href="javascript:void(0)" onclick="showSection('listaContratos')"><i class="fa-solid fa-pen-nib"></i> Contratos</a></li>
+            </ul>
+      </div>
+  </div>
+     <section id="presentacion" class="hidden">
+     
+          <div id="titulo">
+             <h1>Inmobiliaria</h1>
+             <hr class="blanco">
+          </div>
+    </section>   
+    
+    <section id="listaInmuebles" class="hidden">
+      
+      <h1>Listado de Inmuebles</h1>
+      <button onclick="showAddForm()">Agregar Inmueble</button>
+      <div id="inmuebleModal" class="modal hidden">
+          <div class="modal-content">
+              <form id="inmuebleForm">
+                  <h2>Agregar Inmueble</h2>
+                  <input type="hidden" id="inmuebleId">
+                  <div class="form">
+                      <input type="text" id="inmueble" placeholder="Inmueble" required>
+                  </div>
+                  <div class="form">
+                      <input type="text" id="localidad" placeholder="Localidad" required>
+                  </div>
+                  <div class="form">
+                      <input type="text" id="direccion" placeholder="Dirección" required>
+                  </div>
+                  <div class="form">
+                      <input type="text" id="propietario" placeholder="Propietario" required>
+                  </div>
+                  <div class="form">
+                      <input type="text" id="tipoInmueble" placeholder="Tipo Inmueble" required>
+                  </div>
+                  <div class="form">
+                      <input type="text" id="estadoInmueble" placeholder="Estado Inmueble" required>
+                  </div>
+                  <button type="submit" id="submitButton">Guardar</button>
+                  <button type="button" onclick="hideAddForm()">Cancelar</button>
+              </form>
+          </div>
+      </div>
+  </div>
+      <div id="cuadros">
+  
+          <table id="data-table">
+            <thead>
+              <tr>
+                <!-- Ajusta los encabezados según tu tabla -->
+                <th>Inmueble</th>
+                <th>Localidad</th>
+                <th>Dirección</th>
+                <th>Propietario</th>
+                <th>Tipo Inmueble</th>
+                <th>Estado Inmueble</th>
+                <!-- ...otros encabezados -->
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Datos serán insertados aquí -->
+            </tbody>
+          </table>
+          
+       
+  
+      </div>
+      
+  <div id="editInmuebleModal" class="modal hidden">
+    <div class="modal-content">
+        <form id="editInmuebleForm">
+            <h2>Editar Inmueble</h2>
+            <input type="hidden" id="editInmuebleId">
+            <div class="form">
+                <input type="text" id="editInmueble" placeholder="Inmueble" required>
+            </div>
+            <div class="form">
+                <input type="text" id="editLocalidad" placeholder="Localidad" required>
+            </div>
+            <div class="form">
+                <input type="text" id="editDireccion" placeholder="Dirección" required>
+            </div>
+            <div class="form">
+                <input type="text" id="editPropietario" placeholder="Propietario" required>
+            </div>
+            <div class="form">
+                <input type="text" id="editTipoInmueble" placeholder="Tipo Inmueble" required>
+            </div>
+            <div class="form">
+                <input type="text" id="editEstadoInmueble" placeholder="Estado Inmueble" required>
+            </div>
+            <button type="submit" id="editSubmitButton">Guardar</button>
+            <button type="button" onclick="hideEditForm()">Cancelar</button>
+        </form>
+    </div>
+</div>
+    </section> 
+   
+    <section id="listaPersonas" class="hidden">
+        <h1>Lista de Personas</h1>
+        <button onclick="showAddPersonForm()">Agregar Persona</button>
+        <div id="personModal" class="modal hidden">
+            <div class="modal-content">
+                <form id="personForm">
+                    <h2>Agregar Persona</h2>
+                    <input type="hidden" id="personId">
+                    <div class="form">
+                        <input type="text" id="dni" placeholder="DNI" required>
+                    </div>
+                    <div class="form">
+                        <input type="text" id="apellido" placeholder="Apellido" required>
+                    </div>
+                    <div class="form">
+                        <input type="text" id="nombre" placeholder="Nombre" required>
+                    </div>
+                    <button type="submit" id="submitButtonPerson">Guardar</button>
+                    <button type="button" onclick="hideAddPersonForm()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+        <div id="cuadros">
+            <table id="personas-table">
+                <thead>
+                    <tr>
+                        <th>DNI</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Datos serán insertados aquí -->
+                </tbody>
+            </table>
+        </div>
+        <div id="editPersonModal" class="modal hidden">
+            <div class="modal-content">
+                <form id="editPersonForm">
+                    <h2>Editar Persona</h2>
+                    <input type="hidden" id="editPersonId">
+                    <div class="form">
+                        <input type="text" id="editDni" placeholder="DNI" required>
+                    </div>
+                    <div class="form">
+                        <input type="text" id="editApellido" placeholder="Apellido" required>
+                    </div>
+                    <div class="form">
+                        <input type="text" id="editNombre" placeholder="Nombre" required>
+                    </div>
+                    <button type="submit" id="editSubmitButtonPerson">Guardar</button>
+                    <button type="button" onclick="hideEditPersonForm()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="listaContratos" class="hidden">
+        <h1>Lista de Contratos</h1>
+        <button onclick="showAddContractForm()">Agregar Contrato</button>
+        <table id="contratos-table">
+          <thead>
+            <tr>
+              <th>ID Contrato</th>
+              <th>Propietario</th>
+              <th>Inquilino</th>
+              <th>Direccion</th>
+              <th>Fecha Fin</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Aquí se llenará la tabla con datos -->
+          </tbody>
+        </table>
+    
+      <div id="contractModal" class="modal hidden">
+        <div class="modal-content">
+          <form id="contractForm">
+            <input type="hidden" id="contractId">
+            <div class="form">
+              <label for="propietario">Propietario:</label>
+              <input type="text" id="propietario">
+            </div>
+            <div class="form">
+              <label for="inquilino">Inquilino:</label>
+              <input type="text" id="inquilino">
+            </div>
+            <div class="form">
+              <label for="direccion">Direccion:</label>
+              <input type="text" id="direccion">
+            </div>
+            <div class="form">
+              <label for="fechaFin">Fecha Fin:</label>
+              <input type="date" id="fechaFin">
+            </div>
+            <button type="submit">Guardar</button>
+            <button type="button" onclick="hideAddContractForm()">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    
+      <!-- Formulario de edición de contratos -->
+      <div id="editContractModal" class="modal hidden">
+        <div class="modal-content">
+          <form id="editContractForm">
+            <input type="hidden" id="editContractId">
+            <div class="form">
+              <label for="editPropietario">Propietario:</label>
+              <input type="text" id="editPropietario">
+            </div>
+            <div class="form">
+              <label for="editInquilino">Inquilino:</label>
+              <input type="text" id="editInquilino">
+            </div>
+            <div class="form">
+              <label for="editDireccion">Direccion:</label>
+              <input type="text" id="editDireccion">
+            </div>
+            <div class="form">
+              <label for="editFechaFin">Fecha Fin:</label>
+              <input type="date" id="editFechaFin">
+            </div>
+            <button type="submit">Guardar</button>
+            <button type="button" onclick="hideEditContractForm()">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+<script src="inmobiliaria.js"></script>
+</body>
+</html>
